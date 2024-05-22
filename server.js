@@ -3,7 +3,7 @@ const app = express();
 const PORT = 3000;
 
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static("public"));
 
@@ -13,14 +13,23 @@ app.get("/", (req, res) => {
     
     console.log("base url");
     res.render("base", );
-    res.download("/guitarJpegImage.jpg")
+    
+})
+
+app.get("/download-file", (req, res) => {
+    res.download("./public/guitarJpegImage.jpg");
 })
 
 app.get("/:search", (req, res) => {
     console.log("search page");
     res.render("search", req.params);
-    console.log(req.body);
+    
+    
+})
 
+app.post("/upload", (req, res, next) => {
+    console.log(req.body)
+    res.redirect('/searching')
 })
 
 app.post("/", (req, res) => {
